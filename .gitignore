@@ -1,4 +1,4 @@
-build*
-.cache
+build*/
+.cache/
 polyval2d_high_precision.egg-info/
 __pycache__
