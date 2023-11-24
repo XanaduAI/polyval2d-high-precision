@@ -40,7 +40,7 @@ jobs:
             python -m pip install cmake~=3.24.0
             yum clean all -y
             yum install devtoolset-11-gcc-c++ -y
-            yum install mpfr
+            yum install mpfr mpfr-devel -y
 
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
 
