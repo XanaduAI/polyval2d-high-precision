@@ -17,17 +17,38 @@ if(ENABLE_WARNINGS)
     target_compile_options(polyval2d_high_precision_compile_options INTERFACE -Wall -Wextra)
 endif()
 
+
+################################################################################
+#                                Set dependencies
+################################################################################
 include(FetchContent)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 add_library(polyval2d_high_precision_external_libs INTERFACE)
-find_package(Boost REQUIRED)
 find_package(MPFR REQUIRED)
 
-target_link_libraries(polyval2d_high_precision_external_libs INTERFACE Boost::boost)
 target_include_directories(polyval2d_high_precision_external_libs INTERFACE ${MPFR_INCLUDE_DIRS})
 target_link_libraries(polyval2d_high_precision_external_libs INTERFACE ${MPFR_LIBRARIES})
+
+set(BOOST_MP_STANDALONE ON)
+set(BOOST_MATH_STANDALONE ON)
+
+FetchContent_Declare(
+    boost_multiprecision
+    GIT_REPOSITORY https://github.com/boostorg/multiprecision.git
+    GIT_TAG        boost-1.79.0
+)
+FetchContent_MakeAvailable(boost_multiprecision)
+
+FetchContent_Declare(
+    boost_math
+    GIT_REPOSITORY https://github.com/boostorg/math.git
+    GIT_TAG        boost-1.79.0
+)
+FetchContent_MakeAvailable(boost_math)
+target_link_libraries(polyval2d_high_precision_external_libs INTERFACE boost_math boost_multiprecision)
+
 
 if(ENABLE_PYTHON)
     find_package(Python COMPONENTS Interpreter Development)
