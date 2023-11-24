@@ -25,7 +25,7 @@ jobs:
     container: ${{ matrix.container_img }}
 
     steps:
-      - name: Install dependency:
+      - name: Install dependency
         run: yum update -y && yum install -y docker
 
       - uses: actions/checkout@v3
