@@ -22,8 +22,8 @@ jobs:
             python -m pip install cmake~=3.24.0
             yum clean all -y
             yum install devtoolset-11-gcc-c++ -y
-            yum install boost boost-thread boost-devel
             yum install mpfr
+            yum install boost boost-thread boost-devel
 
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
 
