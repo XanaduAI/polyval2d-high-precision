@@ -1,4 +1,4 @@
-name: name: Wheel::Linux::x86_64
+name: Wheel::Linux::x86_64
 
 on:
   pull_request:
