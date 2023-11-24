@@ -21,7 +21,8 @@ jobs:
         os: [ubuntu-latest]
         arch: [x86_64]
         container_img: ["quay.io/pypa/manylinux2014_x86_64"]
-      container: ${{ matrix.container_img }}
+
+    container: ${{ matrix.container_img }}
 
     steps:
       - uses: actions/checkout@v4
