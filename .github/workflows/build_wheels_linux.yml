@@ -31,8 +31,6 @@ jobs:
 
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
 
-        run: python3.9 -m cibuildwheel --output-dir wheelhouse
-
       - uses: actions/upload-artifact@v3
         with:
           path: ./wheelhouse/*.whl
