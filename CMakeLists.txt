@@ -47,7 +47,14 @@ FetchContent_Declare(
     GIT_TAG        boost-1.79.0
 )
 FetchContent_MakeAvailable(boost_math)
-target_link_libraries(polyval2d_high_precision_external_libs INTERFACE boost_math boost_multiprecision)
+
+FetchContent_Declare(
+    boost_config
+    GIT_REPOSITORY https://github.com/boostorg/config.git
+    GIT_TAG        boost-1.79.0
+)
+FetchContent_MakeAvailable(boost_config)
+target_link_libraries(polyval2d_high_precision_external_libs INTERFACE boost_config boost_math boost_multiprecision)
 
 
 if(ENABLE_PYTHON)
