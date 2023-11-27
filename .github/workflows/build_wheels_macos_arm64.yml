@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   build_wheels:
-    name: Build wheels on ${{ matrix.os }}
+    name: Build wheels on ${{ matrix.os }} - ${{ matrix.arch }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -46,6 +46,9 @@ jobs:
 
           # MacOS specific build settings
           CIBW_BEFORE_ALL_MACOS: |
+            arch --arm64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+            eval "$(/usr/local/bin/brew shellenv)"
+            which brew
             brew install mpfr gmp
 
           CIBW_BEFORE_BUILD: |
