@@ -91,7 +91,7 @@ info = {
     "package_data": {},
     "entry_points": {
     },
-    "description": "C++ helper tool for efficient computation of HVA",
+    "description": "C++ helper tool for efficient computation of poly2val",
     "long_description": open("README.rst").read(),
     "long_description_content_type": "text/x-rst",
     "provides": ["polyval2d_mp"],

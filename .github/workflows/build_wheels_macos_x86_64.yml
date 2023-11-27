@@ -1,0 +1,60 @@
+name: Wheel::MacOS::Intel
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  release:
+    types: [published]
+
+env:
+  MACOSX_DEPLOYMENT_TARGET: 10.15
+
+
+concurrency:
+  group: wheel_macos_x86_64-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-12]
+        arch: [x86_64]
+
+    steps:
+      - uses: actions/checkout@v3
+        
+      - uses: actions/setup-python@v4
+        name: Install Python
+        with:
+          python-version: '3.9'
+        
+      - name: Install cibuildwheel
+        run: python3.9 -m pip install cibuildwheel~=2.11.0
+
+      - name: Build wheels
+        env:
+          CIBW_ARCHS_LINUX: ${{matrix.arch}}
+
+          CIBW_SKIP: "*-musllinux*"
+
+          CIBW_BUILD: "cp38-* cp39-* cp310-* cp311-*"
+
+          # MacOS specific build settings
+          CIBW_BEFORE_ALL_MACOS: |
+            brew install mpfr
+
+          CIBW_BEFORE_BUILD: |
+            python -m pip install pybind11 cmake~=3.24.0
+
+          CIBW_BUILD_VERBOSITY: 1
+
+        run: python3.9 -m cibuildwheel --output-dir wheelhouse
+
+      - uses: actions/upload-artifact@v3
+        with:
+          path: ./wheelhouse/*.whl
