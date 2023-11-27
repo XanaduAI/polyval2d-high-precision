@@ -39,7 +39,7 @@ jobs:
         run: |
           pushd external
           tar -xf gmp-6.3.0.tar.xz
-          tar -xf mpfr-4.2.1
+          tar -xf mpfr-4.2.1.tar.xz
           popd
 
       - name: Build wheels
