@@ -35,7 +35,9 @@ target_link_libraries(polyval2d_high_precision_external_libs INTERFACE ${MPFR_LI
 
 # Add GMP
 find_package(GMP REQUIRED)
+message(STATUS "GMP_INCLUDES = ${GMP_INCLUDES}")
 target_link_libraries(polyval2d_high_precision_external_libs INTERFACE gmp)
+target_include_directories(polyval2d_high_precision_external_libs INTERFACE ${GMP_INCLUDES})
 
 set(BOOST_MP_STANDALONE ON)
 set(BOOST_MATH_STANDALONE ON)
