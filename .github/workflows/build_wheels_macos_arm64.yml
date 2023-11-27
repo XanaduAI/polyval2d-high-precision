@@ -46,10 +46,9 @@ jobs:
 
           # MacOS specific build settings
           CIBW_BEFORE_ALL_MACOS: |
-            arch --arm64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-            eval "$(/usr/local/bin/brew shellenv)"
-            which brew
-            brew install mpfr gmp
+            brew fetch --force --bottle-tag=arm64_big_sur mpfr gmp
+            brew install $(brew --cache --bottle-tag=arm64_big_sur mpfr gmp)
+            #brew install mpfr gmp
 
           CIBW_BEFORE_BUILD: |
             python -m pip install pybind11 cmake~=3.24.0
