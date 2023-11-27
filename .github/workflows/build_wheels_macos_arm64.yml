@@ -12,7 +12,7 @@ env:
   ARCHS: 'arm64'
 
 concurrency:
-  group: wheel_macos_x86_64-${{ github.ref }}
+  group: wheel_macos_arm64-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
