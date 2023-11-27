@@ -47,6 +47,7 @@ jobs:
           # MacOS specific build settings
           CIBW_BEFORE_ALL_MACOS: |
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+            eval "$(/usr/local/bin/brew shellenv)"
             brew fetch --force --bottle-tag=arm64_big_sur mpfr
             brew install $(brew --cache --bottle-tag=arm64_big_sur mpfr)
             brew fetch --force --bottle-tag=arm64_big_sur gmp
