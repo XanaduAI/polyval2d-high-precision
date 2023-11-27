@@ -21,7 +21,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-12]
+        os: [macos-11]
         arch: [arm64]
 
     steps:
@@ -46,16 +46,16 @@ jobs:
 
           # MacOS specific build settings
           CIBW_BEFORE_ALL_MACOS: |
-            # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-            # eval "$(/usr/local/bin/brew shellenv)"
-
-            # echo "$(which brew)"
-
-            brew fetch --force --bottle-tag=arm64_big_sur mpfr
-            brew install $(brew --cache --bottle-tag=arm64_big_sur mpfr)
-            brew fetch --force --bottle-tag=arm64_big_sur gmp
-            brew install $(brew --cache --bottle-tag=arm64_big_sur gmp)
-            #brew install mpfr gmp
+            wget https://gmplib.org/download/gmp/gmp-6.3.0.tar.xz
+            tar -xf gmp-6.3.0.tar.xz
+            cd gmp-6.3.0
+            ./configure --host=arm64-apple-macos11
+            make && make install
+            wget https://www.mpfr.org/mpfr-current/mpfr-4.2.1.tar.xz
+            tar -xf mpfr-4.2.1
+            cd mpfr-4.2.1
+            ./configure --host=arm64-apple-macos11
+            make && make install
 
           CIBW_BEFORE_BUILD: |
             python -m pip install pybind11 cmake~=3.24.0
