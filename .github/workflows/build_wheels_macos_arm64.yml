@@ -37,10 +37,10 @@ jobs:
 
       - name: Download and untar dependencies
         run: |
-          wget https://gmplib.org/download/gmp/gmp-6.3.0.tar.xz
+          pushd external
           tar -xf gmp-6.3.0.tar.xz
-          wget https://www.mpfr.org/mpfr-current/mpfr-4.2.1.tar.xz
           tar -xf mpfr-4.2.1
+          popd
 
       - name: Build wheels
         env:
@@ -53,6 +53,7 @@ jobs:
 
           # MacOS specific build settings
           CIBW_BEFORE_ALL_MACOS: |
+            pushd external
             pushd gmp-6.3.0
             ./configure --host=arm64-apple-macos11
             make && make install
