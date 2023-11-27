@@ -48,6 +48,10 @@ class CMakeBuild(build_ext):
             f"-DPYTHON_EXECUTABLE={sys.executable}",
             f"-DCMAKE_BUILD_TYPE={cfg}",  # not used on MSVC, but no harm
         ]
+
+        if "CMAKE_ARGS" in os.environ:
+            configure_args += os.environ["CMAKE_ARGS"].split(" ")
+
         configure_args += self.cmake_defines
         
         build_args = []
@@ -91,7 +95,7 @@ info = {
     "package_data": {},
     "entry_points": {
     },
-    "description": "C++ helper tool for efficient computation of HVA",
+    "description": "C++ helper tool for efficient computation of poly2val",
     "long_description": open("README.rst").read(),
     "long_description_content_type": "text/x-rst",
     "provides": ["polyval2d_mp"],
