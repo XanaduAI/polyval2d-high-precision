@@ -46,8 +46,10 @@ jobs:
 
           # MacOS specific build settings
           CIBW_BEFORE_ALL_MACOS: |
-            brew fetch --force --bottle-tag=arm64_big_sur mpfr gmp
-            brew install $(brew --cache --bottle-tag=arm64_big_sur mpfr gmp)
+            brew fetch --force --bottle-tag=arm64_big_sur mpfr
+            brew install $(brew --cache --bottle-tag=arm64_big_sur mpfr 
+            brew fetch --force --bottle-tag=arm64_big_sur gmp
+            brew install $(brew --cache --bottle-tag=arm64_big_sur gmp
             #brew install mpfr gmp
 
           CIBW_BEFORE_BUILD: |
