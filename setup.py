@@ -48,6 +48,10 @@ class CMakeBuild(build_ext):
             f"-DPYTHON_EXECUTABLE={sys.executable}",
             f"-DCMAKE_BUILD_TYPE={cfg}",  # not used on MSVC, but no harm
         ]
+
+        if "CMAKE_ARGS" in os.environ:
+            configure_args += os.environ["CMAKE_ARGS"].split(" ")
+
         configure_args += self.cmake_defines
         
         build_args = []
