@@ -55,11 +55,11 @@ jobs:
           CIBW_BEFORE_ALL_MACOS: |
             pushd external
             pushd gmp-6.3.0
-            ./configure --host=arm64-apple-macos11
+            CC=clang ./configure --host=arm64-apple-macos11
             make && make install
             popd
             pushd mpfr-4.2.1
-            ./configure --host=arm64-apple-macos11
+            CC=clang ./configure --host=arm64-apple-macos11
             make && make install
             popd
 
