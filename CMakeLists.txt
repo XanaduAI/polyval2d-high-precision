@@ -26,10 +26,16 @@ include(FetchContent)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 add_library(polyval2d_high_precision_external_libs INTERFACE)
+
+# Add MPFR
 find_package(MPFR REQUIRED)
 
 target_include_directories(polyval2d_high_precision_external_libs INTERFACE ${MPFR_INCLUDE_DIRS})
 target_link_libraries(polyval2d_high_precision_external_libs INTERFACE ${MPFR_LIBRARIES})
+
+# Add GMP
+find_package(GMP REQUIRED)
+target_link_libraries(polyval2d_high_precision_external_libs INTERFACE gmp)
 
 set(BOOST_MP_STANDALONE ON)
 set(BOOST_MATH_STANDALONE ON)
